@@ -4,11 +4,18 @@ volumes:
 
 services:
   game:
-    build: /server
+    image: itzg/minecraft-server:java17
     ports:
       - 25565:25565
+    environment:
+      EULA: "TRUE"
+      TYPE: "PAPER"
+      PAPERBUILD: 307
+    tty: true
+    stdin_open: true
+    restart: unless-stopped
     volumes:
-      - /server:/server
+      - ./minecraft-data:/data
   
   alertmanager:
     hostname: alertmanager
