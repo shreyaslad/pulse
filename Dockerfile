@@ -3,7 +3,7 @@ FROM ubuntu:latest
 RUN apt update && apt upgrade -y
 
 # Install Java 17 in the container
-RUN apt install \
+RUN apt install -y \
     software-properties-common \
     ca-certificates \
     apt-transport-https \
