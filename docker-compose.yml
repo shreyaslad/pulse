@@ -40,4 +40,4 @@ services:
       - ./config/grafana_config.ini:/etc/grafana/config.ini
       - grafana_data:/var/lib/grafana
     ports:
-      - 80:3000
+      - 3000:3000
