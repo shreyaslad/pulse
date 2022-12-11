@@ -1,0 +1,12 @@
+[Unit]
+Description=Start docker compose stack
+After=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/home/ubuntu/pulse
+ExecStart=/usr/bin/docker compose -f docker-compose.yml up -d --remove-orphans
+
+[Install]
+WantedBy=multi-user.target

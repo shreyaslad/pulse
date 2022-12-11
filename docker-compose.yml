@@ -1,0 +1,43 @@
+volumes:
+  prometheus_data: {}
+  grafana_data: {}
+
+services:
+  game:
+    build: /server
+    ports:
+      - 25565:25565
+  
+  alertmanager:
+    hostname: alertmanager
+    image: prom/alertmanager
+    volumes:
+      - ./config/alertmanager.conf:/etc/alertmanager/alertmanager.conf
+    command:
+      - '--config.file=/etc/alertmanager/alertmanager.conf'
+    ports:
+      - 9093:9093
+  
+  prometheus:
+    hostname: prometheus
+    image: prom/prometheus
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./config/alert_rules.yml:/etc/prometheus/alert_rules.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    links:
+      - alertmanager:alertmanager
+    ports:
+      - 9090:9090
+
+  grafana:
+    hostname: grafana
+    image: grafana/grafana
+    volumes:
+      - ./config/grafana_datasources.yml:/etc/grafana/provisioning/datasources/all.yaml
+      - ./config/grafana_config.ini:/etc/grafana/config.ini
+      - grafana_data:/var/lib/grafana
+    ports:
+      - 80:3000
