@@ -14,7 +14,6 @@ RUN apt update \
     && apt install -y java-17-amazon-corretto-jdk
 
 # This Dockerfile is meant to already exist with your server files
-ADD . /server
 WORKDIR /server
 
 # NOTE: Specifically runs a 1.19.2 PaperMC Minecraft
