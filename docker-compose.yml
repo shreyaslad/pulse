@@ -1,6 +1,12 @@
 volumes:
   prometheus_data: {}
   grafana_data: {}
+  game_data:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /server
 
 services:
   game:
@@ -12,14 +18,12 @@ services:
       TYPE: "PAPER"
       PAPER_DOWNLOAD_URL: "https://api.papermc.io/v2/projects/paper/versions/1.19.2/builds/307/downloads/paper-1.19.2-307.jar"
       MEMORY: 5G
-      STOP_SERVER_ANNOUNCE_DELAY: 15
 
-      PVP: false
     tty: true
     stdin_open: true
     restart: unless-stopped
     volumes:
-      - /server:/data
+      - game_data:/data
   
   alertmanager:
     hostname: alertmanager
