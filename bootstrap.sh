@@ -7,7 +7,3 @@
 sudo cp docker_boot.service /etc/systemd/system
 sudo systemctl enable docker
 sudo systemctl enable docker_boot
-
-# Update the Dockerfile in the server
-# Allows us to build a new image with `docker compose build`
-sudo cp Dockerfile /server

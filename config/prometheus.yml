@@ -9,3 +9,14 @@ alerting:
 
 rule_files:
   - /etc/prometheus/alert_rules.yml
+
+scrape_configs:
+  - job_name: 'prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [ 'prom:9090' ]
+
+  - job_name: 'mc-server'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [ 'game:25565' ]
